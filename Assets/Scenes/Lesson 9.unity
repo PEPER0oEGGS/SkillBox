@@ -495,6 +495,7 @@ MonoBehaviour:
   _aim: {x: 50, y: 0, z: 0}
   _speed: 2
   _forse: 50
+  _rg: {fileID: 140103801}
 --- !u!54 &140103801
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -509,7 +510,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 124
   m_CollisionDetection: 0
 --- !u!65 &140103802
 BoxCollider:
@@ -2532,6 +2533,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd51f28e233a6294995cf986ba65e8db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rg: {fileID: 1231857832}
   _force: 7500
 --- !u!1 &1323395792
 GameObject:
@@ -3714,6 +3716,7 @@ MonoBehaviour:
   _ExplosionTime: 5
   _forceOfExp: 20
   _TimeforExp: 0.1
+  cl: {fileID: 0}
 --- !u!135 &1794663281
 SphereCollider:
   m_ObjectHideFlags: 0

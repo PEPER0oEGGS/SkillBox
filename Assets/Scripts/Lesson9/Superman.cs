@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Superman : MonoBehaviour
@@ -8,23 +6,19 @@ public class Superman : MonoBehaviour
     [SerializeField] Vector3 _aim;
     [SerializeField] float _speed;
     [SerializeField] float _forse;
+    [SerializeField] Rigidbody _rg;
 
     void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, _aim,_speed*Time.deltaTime);
+        _rg.AddForce(new Vector3(1, 0, 0)* _speed,ForceMode.Force);
     }
-
-
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.GetComponent<Rigidbody>() != null)
+        if(collision.gameObject.TryGetComponent(out Rigidbody rg))
         {
-            collision.gameObject.GetComponent<Rigidbody>().AddForce(transform.forward*_forse, ForceMode.VelocityChange);
+            rg.AddForce(transform.forward*_forse, ForceMode.VelocityChange);
         }
     }
-
-
-
 
 }

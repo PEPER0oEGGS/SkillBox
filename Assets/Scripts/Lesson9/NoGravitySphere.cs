@@ -1,22 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class NoGravitySphere : MonoBehaviour
 {
-    // Start is called before the first frame update
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<Rigidbody>() != null)
+        if (other.TryGetComponent(out Rigidbody rg))
         {
-            other.GetComponent<Rigidbody>().useGravity = false;
+            rg.useGravity = false;
         }
     }
+    
     private void OnTriggerExit(Collider other)
     {
-        if (other.GetComponent<Rigidbody>() != null)
+        if (other.TryGetComponent(out Rigidbody rg))
         {
-            other.GetComponent<Rigidbody>().useGravity = true;
+            rg.useGravity = true;
         }
     }
 }

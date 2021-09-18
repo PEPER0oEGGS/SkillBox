@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Explosion : MonoBehaviour
@@ -8,6 +5,7 @@ public class Explosion : MonoBehaviour
     [SerializeField] private float _ExplosionTime = 3f;
     [SerializeField] private float _forceOfExp = 10f;
     [SerializeField] private float _TimeforExp = 0.1f;
+    [SerializeField] private Collider cl;
     private bool _boom=false;
 
         void Update()
@@ -38,13 +36,14 @@ public class Explosion : MonoBehaviour
 
     private void Boom(bool boom)
     {
-        GetComponent<Collider>().isTrigger = boom;
+        cl.isTrigger = boom;
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.GetComponent<Rigidbody>() != null)
+        if (collision.gameObject.TryGetComponent(out Rigidbody rg))
         {
-            collision.gameObject.GetComponent<Rigidbody>().AddForce((collision.gameObject.transform.position - transform.position)*(Vector3.Distance(transform.position, collision.gameObject.transform.position)*_forceOfExp), ForceMode.Impulse);
+            Vector3 position = collision.gameObject.transform.position;
+            rg.AddForce((position - transform.position)*(Vector3.Distance(transform.position, position) *_forceOfExp), ForceMode.Impulse);
         }
     }
 }
