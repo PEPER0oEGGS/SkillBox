@@ -15,28 +15,34 @@ public class PinballShooter : MonoBehaviour
     void Start()
     {
         TimerWaitCounter = TimerWait;
+        sj.tolerance = 2;
         TimerShootCounter = TimerShoot;
     }
-
-
-
     void Update()
     {
+        TimerWaitCounter--;
         if (isWait)
         {
-            TimerWaitCounter--;
+            rb.AddRelativeForce(new Vector3(0, 0, -1) * Force * Time.deltaTime, ForceMode.Force);
             if (TimerWaitCounter == 0)
             {
                 TimerWaitCounter = TimerWait;
-                //sj.spring = 0;
+                Debug.Log(sj.tolerance);
+                sj.tolerance = 0f;
+                
                 isWait = false;
             }
         }
         else
         {
-             rb.AddRelativeForce(new Vector3(0, 0, -1) * Force, ForceMode.Force);
-            //sj.spring = 50000000; 
-            isWait = true;
+            if (TimerWaitCounter == 0)
+            {
+                TimerWaitCounter = TimerWait;
+                Debug.LogError(sj.tolerance);
+                sj.tolerance = 2f;
+
+                isWait = true;
+            }
         }
     }
 }
