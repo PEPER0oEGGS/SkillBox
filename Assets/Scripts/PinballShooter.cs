@@ -1,47 +1,39 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PinballShooter : MonoBehaviour
 {
-    [SerializeField] private float Force = 1000;
-    [SerializeField] private Rigidbody rb;
-    [SerializeField] private SpringJoint sj;
-    [SerializeField] private float TimerWait = 1000;
-    [SerializeField] private float TimerShoot = 1000;
-    private float TimerWaitCounter;
-    private float TimerShootCounter;
-    private bool isWait = true;
+    [SerializeField] private float _force = 1000;
+    [SerializeField] private Rigidbody _rb;
+    [SerializeField] private SpringJoint _sj;
+    [SerializeField] private float _timerWait = 1000;
+    [SerializeField] private float _timerShoot = 1000;
+    private float _timerWaitCounter;
+    private bool _isWait = true;
     void Start()
     {
-        TimerWaitCounter = TimerWait;
-        sj.tolerance = 2;
-        TimerShootCounter = TimerShoot;
+        _timerWaitCounter = _timerWait;
+        _sj.tolerance = 2;
     }
     void Update()
     {
-        TimerWaitCounter--;
-        if (isWait)
+        _timerWaitCounter--;
+        if (_isWait)
         {
-            rb.AddRelativeForce(new Vector3(0, 0, -1) * Force * Time.deltaTime, ForceMode.Force);
-            if (TimerWaitCounter == 0)
+            _rb.AddRelativeForce(new Vector3(0, 0, -1) * _force * Time.deltaTime, ForceMode.Force);
+            if (_timerWaitCounter == 0)
             {
-                TimerWaitCounter = TimerWait;
-                Debug.Log(sj.tolerance);
-                sj.tolerance = 0f;
-                
-                isWait = false;
+                _timerWaitCounter = _timerWait;
+                _sj.tolerance = 0f; 
+                _isWait = false;
             }
         }
         else
         {
-            if (TimerWaitCounter == 0)
+            if (_timerWaitCounter == 0)
             {
-                TimerWaitCounter = TimerWait;
-                Debug.LogError(sj.tolerance);
-                sj.tolerance = 2f;
-
-                isWait = true;
+                _timerWaitCounter = _timerShoot;
+                _sj.tolerance = 2f;
+                _isWait = true;
             }
         }
     }
