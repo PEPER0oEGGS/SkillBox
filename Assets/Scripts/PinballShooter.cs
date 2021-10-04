@@ -12,18 +12,18 @@ public class PinballShooter : MonoBehaviour
     void Start()
     {
         _timerWaitCounter = _timerWait;
-        _sj.tolerance = 2;
+     //   _sj.tolerance = 2;
     }
-    void Update()
+    void FixedUpdate()
     {
         _timerWaitCounter--;
         if (_isWait)
         {
-            _rb.AddRelativeForce(new Vector3(0, 0, -1) * _force * Time.deltaTime, ForceMode.Force);
+            _rb.AddRelativeForce(new Vector3(0, 0, -1) * _force*(1-(_timerWaitCounter/_timerWait)), ForceMode.Force);
             if (_timerWaitCounter == 0)
             {
                 _timerWaitCounter = _timerWait;
-                _sj.tolerance = 0f; 
+              //  _sj.tolerance = 0f; 
                 _isWait = false;
             }
         }
@@ -32,7 +32,7 @@ public class PinballShooter : MonoBehaviour
             if (_timerWaitCounter == 0)
             {
                 _timerWaitCounter = _timerShoot;
-                _sj.tolerance = 2f;
+             //   _sj.tolerance = 2f;
                 _isWait = true;
             }
         }
